@@ -1,9 +1,24 @@
 class Rot13
   def cypher(string)
-    alphabet = ('a'..'z').map{|char| char}
     string.chars.map{ |char|
-      index = alphabet.index(char) - 13
-      alphabet[index]
+      method = is_uppercase?(char) ? 'uppercase' : 'lowercase'
+      method += '_alphabet'
+      index = self.send(method).index(char) - 13
+      self.send(method)[index]
     }.join
+  end
+
+  private
+
+  def is_uppercase?(char)
+    uppercase_alphabet.include?(char)
+  end
+
+  def lowercase_alphabet
+    ('a'..'z').map{|char| char}
+  end
+
+  def uppercase_alphabet
+    ('A'..'Z').map{|char| char}
   end
 end
