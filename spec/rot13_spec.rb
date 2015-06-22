@@ -32,4 +32,20 @@ describe Rot13 do
       expect(result).to eq 'HeLlo'
     end
   end
+
+  context 'cyphering a spaced string' do
+    let!(:string) { 'HeLlo mAn' }
+    let!(:rot13) { Rot13.new }
+
+    it 'cyphers the string' do
+      result = rot13.cypher(string)
+      expect(result).to eq 'UrYyb zNa'
+    end
+
+    it 'can decypher a cyphered string' do
+      cyphered_string = rot13.cypher(string)
+      result = rot13.cypher(cyphered_string)
+      expect(result).to eq 'HeLlo mAn'
+    end
+  end
 end
